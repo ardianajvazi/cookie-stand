@@ -57,7 +57,7 @@ this.renderToDom = function () {
 var pikePlace = new CookieShop("Pike Place", 8, 17, 88, 5.2);
 var seaTacAriport = new CookieShop("Sea tac Airport", 8, 6, 44, 1.2);
 var southcenterMall = new CookieShop("Sound center mall", 8, 11, 38, 1.9);
-var bellevueSquare = new CookieShop("bellevue Square", 8, 20, 48, 33);
+var bellevueSquare = new CookieShop("Bellevue Square", 8, 20, 48, 33);
 var alki = new CookieShop("Alki", 8, 3, 24, 2.6);
 
 pikePlace.renderToDom();
