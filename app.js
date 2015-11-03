@@ -42,12 +42,12 @@ this.renderToDom = function () {
   for (var i = 0; i < this.hoursLog.length; i++){
     var li = document.createElement('li');
     li.id=this.shopLocation;
-    li.innerHTML = this.hours[i] + ": " + this.hoursLog[i] ;
+    li.innerHTML = this.hours[i] + ": " + this.hoursLog[i] + " cookies" ;
     ul.appendChild(li);
     total += this.hoursLog[i]
   }
   var h3 = document.createElement('h3');
-  h3.innerHTML = "Total " + total;
+  h3.innerHTML = "Total: " + total + " cookies";
   ul.appendChild(h3);
 }
 
