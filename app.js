@@ -34,10 +34,9 @@ this.renderToDom = function () {
   this.eachHour();
   var total=0;
   var ul = document.getElementById('shops');
-  var shopName = document.createElement('h1')
-  shopName.innerHTML = this.shopLocation;
+  var shopName = document.createElement('h2')
+  shopName.innerHTML = this.shopLocation + ":";
   ul.appendChild(shopName);
-
 
   for (var i = 0; i < this.hoursLog.length; i++){
     var li = document.createElement('li');
@@ -46,17 +45,16 @@ this.renderToDom = function () {
     ul.appendChild(li);
     total += this.hoursLog[i]
   }
-  var h3 = document.createElement('h3');
-  h3.innerHTML = "Total: " + total + " cookies";
+  var h3 = document.createElement('h4');
+  h3.innerHTML = "Daily Total: " + total + " cookies";
   ul.appendChild(h3);
 }
 
 }
 
-
 var pikePlace = new CookieShop("Pike Place", 8, 17, 88, 5.2);
-var seaTacAriport = new CookieShop("Sea tac Airport", 8, 6, 44, 1.2);
-var southcenterMall = new CookieShop("Sound center mall", 8, 11, 38, 1.9);
+var seaTacAriport = new CookieShop("SeaTac Airport", 8, 6, 44, 1.2);
+var southcenterMall = new CookieShop("South Center Mall", 8, 11, 38, 1.9);
 var bellevueSquare = new CookieShop("Bellevue Square", 8, 20, 48, 33);
 var alki = new CookieShop("Alki", 8, 3, 24, 2.6);
 
