@@ -29,17 +29,17 @@ var total = 0;
  for (i = 0; i < this.hoursOpen; i++){
   total += this.hoursLog[i]
  }
- return total;  
+ return total;
 }
 
 this.renderToDom = function () {
   this.eachHour();
-  
+
   for (var i = 0; i < allShops.length; i++) {
     var tr = document.createElement('tr');
     var td = document.createElement('td');
     td.innerHTML = this.shopLocation;
-    tr.appendChild(td); 
+    tr.appendChild(td);
 
     for (var i = 0; i < this.hoursLog.length; i++) {
       var td = document.createElement('td');
@@ -64,7 +64,7 @@ function makeTable() {
   var thead = document.createElement('thead')
   var blankCell = document.createElement('td');
   thead.appendChild(blankCell);
- 
+
   for (var i = 0; i < hours.length; i++){
     var td = document.createElement('td');
     td.innerHTML = hours[i];
@@ -90,5 +90,6 @@ seaTacAriport.renderToDom();
 southcenterMall.renderToDom();
 bellevueSquare.renderToDom();
 alki.renderToDom();
+
 
 
