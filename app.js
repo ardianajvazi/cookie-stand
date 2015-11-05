@@ -5,9 +5,8 @@ var allShops = [];
 var form = document.getElementById('form');
 var submitButton = document.getElementById('submitButton');
 
-var CookieShop = function (shopLocation, hoursOpen, minCust, maxCust, avgCookiePerCust){
+var CookieShop = function (shopLocation, minCust, maxCust, avgCookiePerCust){
  this.shopLocation = shopLocation;
- this.hoursOpen = hoursOpen;
  this.minCust = minCust;
  this.maxCust = maxCust;
  this.avgCookiePerCust = avgCookiePerCust;
@@ -24,14 +23,14 @@ this.totalCookiesPerHr = function() {
 }
 
 this.eachHour =  function() {
-  for (i = 0; i < hoursOpen; i++){
+  for (i = 0; i < 8; i++){
     this.hoursLog.push(this.totalCookiesPerHr());
   }
 }
 
 this.generate =  function() {
 var total = 0;
- for (i = 0; i < this.hoursOpen; i++){
+ for (i = 0; i < 8; i++){
   total += this.hoursLog[i]
  }
  return total;
@@ -91,37 +90,40 @@ var southcenterMall = new CookieShop("South Center Mall", 8, 11, 38, 1.9);
 var bellevueSquare = new CookieShop("Bellevue Square", 8, 20, 48, 33);
 var alki = new CookieShop("Alki", 8, 3, 24, 2.6);
 
-
-
-function newCookieShop(){
-  window['newShop' + newShopCounter] = new Shop(event.target.minCust.value, event.target.maxCust.value, event.target.avgCust.value, event.target.storeLocation.value);
-  window['newShop' + newShopCounter].renderToDom();
-  event.target.minCust.value = null;
-  event.target.maxCust.value = null;
-  event.target.avgCust.value = null;
-  event.target.storeLocation.value = null;
-  newShopCounter++;
-}
-
-function check(event){
-  event.preventDefault();
-  if (!event.target.storeLocation.value || !event.target.minCust.value || !event.target.maxCust.value || !event.target.avgCust.value) {
-    return alert('Fields cannot be empty!');
-  };
-  if (isNaN(event.target.minCust.value) || isNaN(event.target.maxCust.value) || isNaN(event.target.avgCust.value)) {
-    return alert('Please enter a number');
-  };
-}
-
 makeTable();
 
-pikePlace.renderToDom();
-seaTacAriport.renderToDom();
-southcenterMall.renderToDom();
-bellevueSquare.renderToDom();
-alki.renderToDom();
-form.addEventListener('submit', check);
+function displayAllLocations() {
+  for (var i = 0; i < allShops.length; i++) {
+    allShops[i].renderToDom();
+  }
+  document.body.appendChild(table)
+}
 
+displayAllLocations();
+
+var form = document.getElementById('form');
+var storeLocation = document.getElementById('storeLocation');
+var minCust = document.getElementById('minCustomer');
+var maxCust = document.getElementById('maxCustomer');
+var avgCust = document.getElementById('avgCookie');
+
+var newShopSubmit = function(event) {
+  event.preventDefault();
+
+
+    var shopLocation = event.target.storeLocation.value;
+    var minCust = event.target.minCustomer.value;
+    var maxCust = event.target.maxCustomer.value;
+    var avgCookiePerCust = event.target.avgCookie.value;
+
+    var newStore = new CookieShop(shopLocation, minCust, maxCust, avgCookiePerCust);
+    console.log('newStore ' + event.target.storeLocation.value);
+
+    newStore.renderToDom();
+
+};
+
+form.addEventListener('submit', newShopSubmit);
 
 
 
