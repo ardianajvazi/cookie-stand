@@ -1,5 +1,9 @@
+var newShopCounter = 1;
 var table = document.getElementById('shops');
 var hours = ['10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'];
+var allShops = [];
+var form = document.getElementById('form');
+var submitButton = document.getElementById('submitButton');
 
 var CookieShop = function (shopLocation, hoursOpen, minCust, maxCust, avgCookiePerCust){
  this.shopLocation = shopLocation;
@@ -8,6 +12,7 @@ var CookieShop = function (shopLocation, hoursOpen, minCust, maxCust, avgCookieP
  this.maxCust = maxCust;
  this.avgCookiePerCust = avgCookiePerCust;
  this.hoursLog = [];
+ allShops.push(this);
 
 
 this.getRandomCust = function() {
@@ -38,11 +43,13 @@ this.renderToDom = function () {
   for (var i = 0; i < allShops.length; i++) {
     var tr = document.createElement('tr');
     var td = document.createElement('td');
-    td.innerHTML = this.shopLocation;
+    td.setAttribute('class', 'locations')
+    td.innerHTML = this.shopLocation + ":";
     tr.appendChild(td);
 
     for (var i = 0; i < this.hoursLog.length; i++) {
       var td = document.createElement('td');
+      td.setAttribute('class', 'hours')
       td.innerHTML = this.hoursLog[i];
       tr.appendChild(td);
     }
@@ -71,25 +78,54 @@ function makeTable() {
     thead.appendChild(td);
   }
 
-  var td = document.createElement('td');
-  td.innerHTML = 'total'
+  var td = document.createElement('tdtotal');
+  td.innerHTML = 'Daily Total:'
   thead.appendChild(td);
   table.appendChild(thead);
 }
+
 
 var pikePlace = new CookieShop("Pike Place", 8, 17, 88, 5.2);
 var seaTacAriport = new CookieShop("SeaTac Airport", 8, 6, 44, 1.2);
 var southcenterMall = new CookieShop("South Center Mall", 8, 11, 38, 1.9);
 var bellevueSquare = new CookieShop("Bellevue Square", 8, 20, 48, 33);
 var alki = new CookieShop("Alki", 8, 3, 24, 2.6);
-var allShops = [pikePlace, seaTacAriport, southcenterMall, bellevueSquare, alki];
+
+
+
+function newCookieShop(){
+  window['newShop' + newShopCounter] = new Shop(event.target.minCust.value, event.target.maxCust.value, event.target.avgCust.value, event.target.storeLocation.value);
+  window['newShop' + newShopCounter].renderToDom();
+  event.target.minCust.value = null;
+  event.target.maxCust.value = null;
+  event.target.avgCust.value = null;
+  event.target.storeLocation.value = null;
+  newShopCounter++;
+}
+
+function check(event){
+  event.preventDefault();
+  if (!event.target.storeLocation.value || !event.target.minCust.value || !event.target.maxCust.value || !event.target.avgCust.value) {
+    return alert('Fields cannot be empty!');
+  };
+  if (isNaN(event.target.minCust.value) || isNaN(event.target.maxCust.value) || isNaN(event.target.avgCust.value)) {
+    return alert('Please enter a number');
+  };
+}
 
 makeTable();
+
 pikePlace.renderToDom();
 seaTacAriport.renderToDom();
 southcenterMall.renderToDom();
 bellevueSquare.renderToDom();
 alki.renderToDom();
+form.addEventListener('submit', check);
+
+
+
+
+
 
 
 
