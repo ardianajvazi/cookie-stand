@@ -1,6 +1,5 @@
-var newShopCounter = 1;
-var table = document.getElementById('shops');
 var hours = ['10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'];
+var table = document.getElementById('shops');
 var allShops = [];
 var form = document.getElementById('form');
 var submitButton = document.getElementById('submitButton');
@@ -12,7 +11,6 @@ var CookieShop = function (shopLocation, minCust, maxCust, avgCookiePerCust){
  this.avgCookiePerCust = avgCookiePerCust;
  this.hoursLog = [];
  allShops.push(this);
-
 
 this.getRandomCust = function() {
   return Math.floor(Math.random() * (this.maxCust - this.minCust + 1)) + this.minCust;
@@ -59,12 +57,8 @@ this.renderToDom = function () {
 
     table.appendChild(tr);
   }
-
-
-  }
-
+ }
 }
-
 
 function makeTable() {
   var thead = document.createElement('thead')
@@ -84,11 +78,11 @@ function makeTable() {
 }
 
 
-var pikePlace = new CookieShop("Pike Place", 8, 17, 88, 5.2);
-var seaTacAriport = new CookieShop("SeaTac Airport", 8, 6, 44, 1.2);
-var southcenterMall = new CookieShop("South Center Mall", 8, 11, 38, 1.9);
-var bellevueSquare = new CookieShop("Bellevue Square", 8, 20, 48, 33);
-var alki = new CookieShop("Alki", 8, 3, 24, 2.6);
+var pikePlace = new CookieShop("Pike Place", 17, 88, 5.2);
+var seaTacAriport = new CookieShop("SeaTac Airport", 6, 44, 1.2);
+var southcenterMall = new CookieShop("South Center Mall", 11, 38, 1.9);
+var bellevueSquare = new CookieShop("Bellevue Square", 20, 48, 33);
+var alki = new CookieShop("Alki", 3, 24, 2.6);
 
 makeTable();
 
@@ -101,33 +95,26 @@ function displayAllLocations() {
 
 displayAllLocations();
 
-var form = document.getElementById('form');
-var storeLocation = document.getElementById('storeLocation');
-var minCust = document.getElementById('minCustomer');
-var maxCust = document.getElementById('maxCustomer');
-var avgCust = document.getElementById('avgCookie');
-
 var newShopSubmit = function(event) {
   event.preventDefault();
-
 
     var shopLocation = event.target.storeLocation.value;
     var minCust = event.target.minCustomer.value;
     var maxCust = event.target.maxCustomer.value;
     var avgCookiePerCust = event.target.avgCookie.value;
 
-    var newStore = new CookieShop(shopLocation, minCust, maxCust, avgCookiePerCust);
-    console.log('newStore ' + event.target.storeLocation.value);
+    if (!event.target.storeLocation.value || !event.target.minCustomer.value || !event.target.maxCustomer.value || !event.target.avgCookie.value){
+      return alert('Fields cannot be empty');
+    }
 
+
+    var newStore = new CookieShop(shopLocation, minCust, maxCust, avgCookiePerCust);
+
+    allShops.push(newShopSubmit);
     newStore.renderToDom();
 
 };
 
 form.addEventListener('submit', newShopSubmit);
-
-
-
-
-
 
 
