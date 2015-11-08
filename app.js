@@ -28,11 +28,11 @@ this.eachHour =  function() {
 }
 
 this.generate =  function() {
-var total = 0;
- for (i = 0; i < 8; i++){
-  total += this.hoursLog[i]
- }
- return total;
+  var total = 0;
+   for (i = 0; i < 8; i++){
+    total += this.hoursLog[i]
+   }
+   return total;
 }
 
 this.renderToDom = function () {
@@ -84,12 +84,12 @@ var bellevueSquare = new CookieShop("Bellevue Square", 20, 48, 33);
 var alki = new CookieShop("Alki", 3, 24, 2.6);
 
 makeTable();
+document.body.appendChild(table)
 
 function displayAllLocations() {
   for (var i = 0; i < allShops.length; i++) {
     allShops[i].renderToDom();
   }
-  document.body.appendChild(table)
 }
 
 displayAllLocations();
@@ -102,17 +102,15 @@ var newShopSubmit = function(event) {
       return alert('Fields cannot be empty');
     }
 
-
+    console.log(form.elements[1].value)
     var shopLocation = event.target.storeLocation.value;
     var minCust = event.target.minCustomer.value;
     var maxCust = event.target.maxCustomer.value;
     var avgCookiePerCust = event.target.avgCookie.value;
 
 
-
     var newStore = new CookieShop(shopLocation, minCust, maxCust, avgCookiePerCust);
 
-    allShops.push(newShopSubmit);
     newStore.renderToDom();
 
 };
