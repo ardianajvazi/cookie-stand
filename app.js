@@ -1,5 +1,5 @@
 var hours = ['10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'];
-var table = document.getElementById('shops');
+var table = document.createElement('table');
 var allShops = [];
 var form = document.getElementById('form');
 var submitButton = document.getElementById('submitButton');
@@ -22,7 +22,8 @@ this.totalCookiesPerHr = function() {
 
 this.eachHour =  function() {
   for (i = 0; i < 8; i++){
-    this.hoursLog.push(this.totalCookiesPerHr());
+    this.hoursLog[i] = this.totalCookiesPerHr();
+
   }
 }
 
@@ -39,22 +40,20 @@ this.renderToDom = function () {
 
   for (var i = 0; i < allShops.length; i++) {
     var tr = document.createElement('tr');
-    var td = document.createElement('td');
-    td.setAttribute('class', 'locations')
-    td.innerHTML = this.shopLocation + ":";
-    tr.appendChild(td);
+    var tdShops = document.createElement('td');
+    tdShops.setAttribute('class', 'locations')
+    tdShops.innerHTML = this.shopLocation + ":";
+    tr.appendChild(tdShops);
 
     for (var i = 0; i < this.hoursLog.length; i++) {
-      var td = document.createElement('td');
-      td.setAttribute('class', 'hours')
-      td.innerHTML = this.hoursLog[i];
-      tr.appendChild(td);
+      var tdHours = document.createElement('td');
+      tdHours.innerHTML = this.hoursLog[i];
+      tr.appendChild(tdHours);
     }
 
     var dailyTotal = document.createElement('td');
     dailyTotal.innerHTML = this.generate();
     tr.appendChild(dailyTotal);
-
     table.appendChild(tr);
   }
  }
@@ -95,17 +94,20 @@ function displayAllLocations() {
 
 displayAllLocations();
 
+
 var newShopSubmit = function(event) {
   event.preventDefault();
+
+    if (!event.target.storeLocation.value || !event.target.minCustomer.value || !event.target.maxCustomer.value || !event.target.avgCookie.value){
+      return alert('Fields cannot be empty');
+    }
+
 
     var shopLocation = event.target.storeLocation.value;
     var minCust = event.target.minCustomer.value;
     var maxCust = event.target.maxCustomer.value;
     var avgCookiePerCust = event.target.avgCookie.value;
 
-    if (!event.target.storeLocation.value || !event.target.minCustomer.value || !event.target.maxCustomer.value || !event.target.avgCookie.value){
-      return alert('Fields cannot be empty');
-    }
 
 
     var newStore = new CookieShop(shopLocation, minCust, maxCust, avgCookiePerCust);
@@ -116,5 +118,4 @@ var newShopSubmit = function(event) {
 };
 
 form.addEventListener('submit', newShopSubmit);
-
 
